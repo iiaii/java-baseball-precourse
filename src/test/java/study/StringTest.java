@@ -43,4 +43,57 @@ public class StringTest {
                 .isEqualTo(expected);
     }
 
+    @Test
+    @DisplayName("[괄호 제거] 괄호 제거 후 반환")
+    public void 괄호제거() {
+        // given
+        String input = "(1,2)";
+        String expected = "1,2";
+
+        // when
+        String peeled = peelBracket(input);
+
+        // then
+        assertThat(peeled).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("[괄호 제거] 괄호가 없는 경우")
+    public void 괄호제거_괄호가없는경우() {
+        // given
+        String input = "1,2";
+        String expected = "1,2";
+
+        // when
+        String peeled = peelBracket(input);
+
+        // then
+        assertThat(peeled).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("[괄호 제거] 괄호 내부가 비어있는 경우")
+    public void 괄호제거_괄호내부가빈경우() {
+        // given
+        String input = "()";
+        String expected = "";
+
+        // when
+        String peeled = peelBracket(input);
+
+        // then
+        assertThat(peeled).isEqualTo(expected);
+    }
+
+    private String peelBracket(String text) {
+        return isWrappedInBracket(text)
+                ? text.substring(1, text.length() - 1)
+                : text;
+    }
+
+    private boolean isWrappedInBracket(String text) {
+        return text.startsWith("(") && text.endsWith(")");
+    }
+
+
 }
