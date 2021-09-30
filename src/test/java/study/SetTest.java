@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashSet;
@@ -47,6 +48,18 @@ public class SetTest {
 
         // then
         assertThat(hasNumber).isTrue();
+    }
+
+    @ParameterizedTest(name = "[포함 확인] 값이 있거나 없는 경우 모두 확인 : {arguments}")
+    @CsvSource(value = {"1:true", "2:true", "3:true", "4:false", "5:false"}, delimiter = ':')
+    public void 포함확인_모든경우(int number, boolean expected) {
+        // given
+
+        // when
+        boolean hasNumber = numbers.contains(number);
+
+        // then
+        assertThat(hasNumber).isEqualTo(expected);
     }
 
 }
