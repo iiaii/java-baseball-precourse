@@ -1,9 +1,11 @@
 package study;
 
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class StringTest {
 
@@ -95,5 +97,36 @@ public class StringTest {
         return text.startsWith("(") && text.endsWith(")");
     }
 
+    @Test
+    @DisplayName("[문자 반환] 특정 위치를 입력하면 해당 위치의 문자 반환")
+    public void 문자반환() {
+        // given
+        String input = "abc";
+        int position = 1;
+        char expected = 'b';
+
+        // when
+        char word = input.charAt(position);
+
+        // then
+        assertThat(word).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("[문자 반환] 입력한 위치가 문자열 범위를 벗어나는 경우")
+    public void 문자반환_위치값이범위를벗어나는경우() {
+        // given
+        String input = "abc";
+        int position = -1;
+        String message = "String index out of range: " + position;
+
+        // when
+        ThrowingCallable throwingCallable = () -> input.charAt(position);
+
+        // then
+        assertThatThrownBy(throwingCallable)
+                .isInstanceOf(StringIndexOutOfBoundsException.class)
+                .hasMessage(message);
+    }
 
 }
