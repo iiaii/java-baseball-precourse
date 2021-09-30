@@ -3,6 +3,8 @@ package study;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,4 +36,17 @@ public class SetTest {
         // then
         assertThat(size).isEqualTo(expected);
     }
+
+    @ParameterizedTest(name = "[포함 확인] numbers 에 포함되는지 확인 : {arguments}")
+    @ValueSource(ints = {1, 2, 3})
+    public void 포함확인(int number) {
+        // given
+
+        // when
+        boolean hasNumber = numbers.contains(number);
+
+        // then
+        assertThat(hasNumber).isTrue();
+    }
+
 }
