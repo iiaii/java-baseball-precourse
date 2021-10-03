@@ -1,6 +1,6 @@
 package baseball.exception;
 
-public class InvalidBallsSizeException extends RuntimeException {
+public class InvalidBallsSizeException extends BaseBallException {
 
     private static final long serialVersionUID = 1L;
     private static final String INVALID_SIZE = "Balls 사이즈는 %d 이어야 합니다 (현재 사이즈: %d)";

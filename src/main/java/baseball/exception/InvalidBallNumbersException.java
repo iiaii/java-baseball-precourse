@@ -1,6 +1,6 @@
 package baseball.exception;
 
-public class InvalidBallNumbersException extends RuntimeException {
+public class InvalidBallNumbersException extends BaseBallException {
 
     private static final long serialVersionUID = 1L;
     private static final String INVALID_NUMBER = "볼의 숫자는 %d ~ %d 의 숫자여야 합니다";
