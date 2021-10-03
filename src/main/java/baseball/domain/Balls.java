@@ -1,7 +1,11 @@
 package baseball.domain;
 
 import baseball.exception.BallOverlappedException;
+import baseball.exception.BaseBallException;
 import baseball.exception.InvalidBallsSizeException;
+import baseball.util.NumberUtils;
+import baseball.view.BallNumbersConsoleInput;
+import baseball.view.ErrorMessageConsoleOutput;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,16 +18,19 @@ public class Balls {
     private final List<Ball> balls;
 
     public Balls(final String numbers) {
+        this(NumberUtils.convertToNumbers(numbers));
+    }
+
+    public Balls(final List<Integer> numbers) {
         List<Ball> balls = createBalls(numbers);
         requireValidSize(numbers);
         requireNotOverlapped(balls);
         this.balls = balls;
     }
 
-    private List<Ball> createBalls(final String numbers) {
+    private List<Ball> createBalls(final List<Integer> numbers) {
         List<Ball> balls = new ArrayList<>();
-        for (int i = 0; i < numbers.length(); i++) {
-            String number = numbers.substring(i, i + 1);
+        for (int number : numbers) {
             balls.add(new Ball(number));
         }
         return balls;
@@ -63,9 +70,9 @@ public class Balls {
         return balls.size();
     }
 
-    private void requireValidSize(final String numbers) {
-        if (numbers.length() != SIZE) {
-            throw new InvalidBallsSizeException(SIZE, numbers.length());
+    private void requireValidSize(final List<Integer> numbers) {
+        if (numbers.size() != SIZE) {
+            throw new InvalidBallsSizeException(SIZE, numbers.size());
         }
     }
 
