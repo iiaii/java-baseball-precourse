@@ -12,10 +12,6 @@ public class Ball {
 
     private final int number;
 
-    public Ball(final String number) {
-        this(NumberUtils.requireNumber(number));
-    }
-
     public Ball(final int number) {
         requireValidNumber(number);
         this.number = number;
