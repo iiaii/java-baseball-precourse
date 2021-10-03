@@ -41,4 +41,30 @@ class BallResultTest {
         assertThat(result).isEqualTo(expected);
     }
 
+    @Test
+    @DisplayName("모두 스트라이크인지 확인 - 모두 스트라이크")
+    public void 모두스트라이크인지확인_모두스트라이크() {
+        // given
+        BallResult ballResult = new BallResult(3, 0);
+
+        // when
+        boolean isAllStrike = ballResult.isAllStrike();
+
+        // then
+        assertThat(isAllStrike).isTrue();
+    }
+
+    @Test
+    @DisplayName("모두 스트라이크인지 확인 - 모두 스트라이크 아닌 경우")
+    public void 모두스트라이크인지확인_모두스트라이크아님() {
+        // given
+        BallResult ballResult = new BallResult(2, 1);
+
+        // when
+        boolean isAllStrike = ballResult.isAllStrike();
+
+        // then
+        assertThat(isAllStrike).isFalse();
+    }
+
 }

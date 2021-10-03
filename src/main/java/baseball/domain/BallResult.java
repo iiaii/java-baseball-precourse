@@ -38,6 +38,10 @@ public class BallResult {
         return new BallResult(strikeCount + ballResult.strikeCount, ballCount + ballResult.ballCount);
     }
 
+    public boolean isAllStrike() {
+        return strikeCount == Balls.SIZE && ballCount == 0;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;
