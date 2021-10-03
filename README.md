@@ -28,6 +28,6 @@
 - 스트라이크와 볼의 수 제공 
 
 
-### BallsCreator (구현체 - Computer)
+### Computer
 
-- 기준이 되는 Balls 제공
+- 기준이 되는 랜덤 숫자 제공
