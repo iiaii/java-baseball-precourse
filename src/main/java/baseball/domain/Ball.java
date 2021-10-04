@@ -26,16 +26,16 @@ public class Ball {
         return ballMap;
     }
 
-    public static final Ball from(final int number) {
+    public static Ball from(final int number) {
         validateNumber(number);
         return ballMap.get(number);
     }
     
-    public static final int minNumber() {
+    public static int minNumber() {
         return MIN;
     }
     
-    public static final int maxNumber() {
+    public static int maxNumber() {
         return MAX;
     }
 

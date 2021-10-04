@@ -1,11 +1,8 @@
 package baseball.domain;
 
 import baseball.exception.BallOverlappedException;
-import baseball.exception.BaseBallException;
 import baseball.exception.InvalidBallsSizeException;
 import baseball.util.NumberUtils;
-import baseball.view.BallNumbersConsoleInput;
-import baseball.view.ErrorMessageConsoleOutput;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,7 +10,7 @@ import java.util.List;
 
 public class Balls {
 
-    public static final int SIZE = 3;
+    private static final int SIZE = 3;
 
     private final List<Ball> balls;
 
@@ -23,8 +20,8 @@ public class Balls {
 
     public Balls(final List<Integer> numbers) {
         List<Ball> balls = createBalls(numbers);
-        requireValidSize(numbers);
-        requireNotOverlapped(balls);
+        validateSize(numbers);
+        validateNotOverlapped(balls);
         this.balls = balls;
     }
 
@@ -42,6 +39,10 @@ public class Balls {
             ballResult = ballResult.add(compare(balls, i));
         }
         return ballResult;
+    }
+
+    public static int maxSize() {
+        return SIZE;
     }
 
     private BallResult compare(final Balls balls, final int i) {
@@ -70,13 +71,13 @@ public class Balls {
         return balls.size();
     }
 
-    private void requireValidSize(final List<Integer> numbers) {
+    private void validateSize(final List<Integer> numbers) {
         if (numbers.size() != SIZE) {
             throw new InvalidBallsSizeException(SIZE, numbers.size());
         }
     }
 
-    private void requireNotOverlapped(final List<Ball> balls) {
+    private void validateNotOverlapped(final List<Ball> balls) {
         if (!isBallOverlapped(balls)) {
             throw new BallOverlappedException();
         }

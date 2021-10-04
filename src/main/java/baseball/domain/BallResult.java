@@ -14,13 +14,13 @@ public class BallResult {
     private final int ballCount;
 
     public BallResult(final int strikeCount, final int ballCount) {
-        requireCount(strikeCount);
-        requireCount(ballCount);
+        validateCount(strikeCount);
+        validateCount(ballCount);
         this.strikeCount = strikeCount;
         this.ballCount = ballCount;
     }
 
-    private void requireCount(final int count) {
+    private void validateCount(final int count) {
         if (count < 0) {
             throw new InvalidCountException(count);
         }
@@ -39,7 +39,7 @@ public class BallResult {
     }
 
     public boolean isAllStrike() {
-        return strikeCount == Balls.SIZE && ballCount == 0;
+        return strikeCount == Balls.maxSize() && ballCount == 0;
     }
 
     @Override
