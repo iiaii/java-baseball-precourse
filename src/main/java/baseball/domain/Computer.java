@@ -6,9 +6,10 @@ import java.util.*;
 
 public class Computer {
 
-    public static List<Integer> createNumbers() {
+    public static List<Integer> createNumbers(final int min, final int max) {
         Set<Integer> numberSet = new LinkedHashSet<>();
-            numberSet.add(Randoms.pickNumberInRange(1, 9));
+        while (numberSet.size() < Balls.maxSize()) {
+            numberSet.add(Randoms.pickNumberInRange(min, max));
         }
         return new ArrayList<>(numberSet);
     }
