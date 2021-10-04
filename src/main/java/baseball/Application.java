@@ -1,50 +1,52 @@
 package baseball;
 
-import baseball.domain.BallResult;
-import baseball.domain.Balls;
-import baseball.domain.Computer;
-import baseball.domain.GameMenu;
+import baseball.domain.*;
 import baseball.exception.*;
 import baseball.view.BallNumbersConsoleInput;
 import baseball.view.BallResultConsoleOutput;
 import baseball.view.ErrorMessageConsoleOutput;
 import baseball.view.GameMenuConsoleInput;
 
+import java.util.function.Supplier;
 
 public class Application {
 
     public static void main(String[] args) {
         do {
-            playGame();
+            Balls targetBalls = new Balls(Computer.createNumbers(Ball.minNumber(), Ball.maxNumber()));
+            guessBalls(targetBalls);
+            BallResultConsoleOutput.printGameEnd(Balls.maxSize());
         } while (isNewGame());
     }
 
-    private static boolean isNewGame() {
-        try {
-            String menu = GameMenuConsoleInput.askMenu(GameMenu.indexes(), GameMenu.menus());
-            return GameMenu.isNewGame(menu);
-        } catch(BaseBallException e) {
-            ErrorMessageConsoleOutput.print(e.getMessage());
-            return isNewGame();
-        }
+    private static void guessBalls(final Balls targetBalls) {
+        BallResult result;
+        do {
+            result = targetBalls.compare(newBalls());
+            BallResultConsoleOutput.printResult(result.strikeCount(), result.ballCount());
+        } while (!result.isAllStrike());
     }
 
-    private static void playGame() {
-        Balls targetBalls = new Balls(Computer.createNumbers());
-        BallResult ballResult;
-        do {
-            ballResult = targetBalls.compare(newBalls());
-            BallResultConsoleOutput.print(ballResult.strikeCount(), ballResult.ballCount());
-        } while (!ballResult.isAllStrike());
-        BallResultConsoleOutput.printGameEnd(Balls.SIZE);
+    private static boolean isNewGame() {
+        return repeatIfError(() -> {
+            String menu = GameMenuConsoleInput.askMenu(GameMenu.indexes(), GameMenu.menus());
+            return GameMenu.isNewGame(menu);
+        });
     }
 
     private static Balls newBalls() {
+        return repeatIfError(() -> {
+            String numbers = BallNumbersConsoleInput.askNumbers();
+            return new Balls(numbers);
+        });
+    }
+
+    private static <T> T repeatIfError(final Supplier<T> supplier) {
         try {
-            return new Balls(BallNumbersConsoleInput.askNumbers());
+            return supplier.get();
         } catch(BaseBallException e) {
             ErrorMessageConsoleOutput.print(e.getMessage());
-            return newBalls();
+            return repeatIfError(supplier);
         }
     }
 
