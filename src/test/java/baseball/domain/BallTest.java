@@ -17,10 +17,10 @@ class BallTest {
     @ValueSource(ints = {1, 9})
     public void 볼생성_1부터9의수(final int number) {
         // given
-        Ball expected = new Ball(number);
+        Ball expected = Ball.from(number);
 
         // when
-        Ball ball = new Ball(number);
+        Ball ball = Ball.from(number);
 
         // then
         assertThat(ball).isEqualTo(expected);
@@ -32,7 +32,7 @@ class BallTest {
         // given
 
         // when
-        ThrowingCallable throwingCallable = () -> new Ball(number);
+        ThrowingCallable throwingCallable = () -> Ball.from(number);
 
         // then
         assertThatThrownBy(throwingCallable)

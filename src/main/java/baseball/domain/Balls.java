@@ -31,7 +31,7 @@ public class Balls {
     private List<Ball> createBalls(final List<Integer> numbers) {
         List<Ball> balls = new ArrayList<>();
         for (int number : numbers) {
-            balls.add(new Ball(number));
+            balls.add(Ball.from(number));
         }
         return balls;
     }

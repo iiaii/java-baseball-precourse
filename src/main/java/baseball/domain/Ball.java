@@ -1,23 +1,45 @@
 package baseball.domain;
 
 import baseball.exception.InvalidBallNumbersException;
-import baseball.util.NumberUtils;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Ball {
 
     private static final int MIN = 1;
     private static final int MAX = 9;
+    private static final Map<Integer, Ball> ballMap = ballMap();
 
     private final int number;
 
-    public Ball(final int number) {
-        requireValidNumber(number);
+    private Ball(final int number) {
         this.number = number;
     }
 
-    private void requireValidNumber(final int number) {
+    private static Map<Integer, Ball> ballMap() {
+        Map<Integer, Ball> ballMap = new HashMap<>();
+        for (int i = MIN; i <= MAX; i++) {
+            ballMap.put(i, new Ball(i));
+        }
+        return ballMap;
+    }
+
+    public static final Ball from(final int number) {
+        validateNumber(number);
+        return ballMap.get(number);
+    }
+    
+    public static final int minNumber() {
+        return MIN;
+    }
+    
+    public static final int maxNumber() {
+        return MAX;
+    }
+
+    private static void validateNumber(final int number) {
         if (MAX < number || MIN > number) {
             throw new InvalidBallNumbersException(MIN, MAX);
         }
