@@ -1,7 +1,5 @@
 package baseball.view;
 
-import baseball.exception.InvalidCountException;
-
 import java.util.Optional;
 import java.util.StringJoiner;
 

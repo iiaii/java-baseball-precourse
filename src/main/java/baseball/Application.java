@@ -13,7 +13,7 @@ public class Application {
 
     public static void main(String[] args) {
         do {
-            Balls targetBalls = new Balls(Computer.createNumbers(Ball.minNumber(), Ball.maxNumber()));
+            Balls targetBalls = new Balls(Computer.createBallNumbers(Ball.minNumber(), Ball.maxNumber()));
             guessBalls(targetBalls);
             BallResultConsoleOutput.printGameEnd(Balls.maxSize());
         } while (isNewGame());

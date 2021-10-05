@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ComputerTest {
 
-    private final List<Integer> numbers = Computer.createNumbers(Ball.minNumber(), Ball.maxNumber());
+    private final List<Integer> numbers = Computer.createBallNumbers(Ball.minNumber(), Ball.maxNumber());
 
     @Test
     @DisplayName("볼 번호 생성 - 볼 사이즈와 같은지 확인")
